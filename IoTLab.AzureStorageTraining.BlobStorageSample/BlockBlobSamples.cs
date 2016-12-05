@@ -28,7 +28,7 @@ namespace IoTLab.AzureStorageTraining.BlobStorageSample
                 ParallelOperationThreadCount = 1,
                 RetryPolicy = new ExponentialRetry(backOffPeriod, retryCount),
             };
-            blockBlob.UploadFromByteArray(data, 0, data.Length);
+            blockBlob.UploadFromByteArray(data, 0, data.Length, null, bro);
             return GetSharedAccessSignatureForBlob(blockBlob);
         }
 
@@ -57,19 +57,19 @@ namespace IoTLab.AzureStorageTraining.BlobStorageSample
         public string UploadAsBlocksList(CloudBlobContainer container, string key, byte[] data)
         {
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(key);
-            blockBlob.Delete();
-            var partitionSize = 1 * 1028;
+            var partitionSize = 1*1028;
             var partNumber = 0;
             List<string> blocksIds = new List<string>();
-            for (int i = 0; i < data.Length; i+=partitionSize)
+
+            for (int i = 0; i < data.Length; i += partitionSize)
             {
-                var bufferSize = Math.Min(512, data.Length - i);
+                var bufferSize = Math.Min(partitionSize, data.Length - i);
                 var buffer = new byte[bufferSize];
-                Array.Copy(data,i,buffer,0,buffer.Length);
+                Array.Copy(data, i, buffer, 0, buffer.Length);
 
                 string blockId =
-                  Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(string.Format("BlockId{0}",
-                    partNumber.ToString("0000000"))));
+                    Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(string.Format("BlockId{0}",
+                        partNumber.ToString("0000000"))));
                 blocksIds.Add(blockId);
 
                 blockBlob.PutBlock(blockId, new MemoryStream(buffer), null);

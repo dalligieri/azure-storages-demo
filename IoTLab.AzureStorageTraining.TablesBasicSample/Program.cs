@@ -13,8 +13,8 @@ namespace IoTLab.AzureStorageTraining.TablesBasicSample
     {
         static void Main(string[] args)
         {
-            var accountName = "";
-            var key = "";
+            var accountName = "iotlabdemo2016";
+            var key = "MDwybITcIvLo03K1+gyPsncBP9Vma9C9XmV43V8Noy7U748o+WNB56DRhYfxEmdZnVSsCSIpUZlAkm44YAFLrQ==";
 
             CloudTable table = SetupTable(accountName, key);
 
@@ -49,7 +49,15 @@ namespace IoTLab.AzureStorageTraining.TablesBasicSample
                 Console.WriteLine("Fruit: {0}", fruit.Name);
             }
 
-            RemoveProduct(table, "Fruits", "Mango");
+            //RemoveProduct(table, "Fruits", "Mango");
+
+            Console.WriteLine("Products by price range");
+            var fruitsByPrice = GetProductsInPriceRange(table, 1, 3).ToArray();
+            foreach (var fruit in fruitsByPrice)
+            {
+                Console.WriteLine("Fruit: {0}", fruit.Name);
+            }
+            Console.ReadLine();
         }
 
         static CloudTable SetupTable(string accountName, string key)
@@ -77,14 +85,17 @@ namespace IoTLab.AzureStorageTraining.TablesBasicSample
             table.Execute(saveOperation);
 
             Console.WriteLine("Product {0} saved", product.Name);
-            Console.ReadLine();
+            //Console.ReadLine();
         }
 
         static void RemoveProduct(CloudTable table, string category, string name)
         {
-            var product = new Product() {Category = category, Name = name};
-            var removeOperation = TableOperation.Delete(product);
-            table.Execute(removeOperation);
+            var product = GetProduct(table, category, name);
+            if (product != null)
+            {
+                var removeOperation = TableOperation.Delete(product);
+                table.Execute(removeOperation);
+            }
         }
 
         static IEnumerable<Product> GetProductsFromCategory(CloudTable table, string category)
@@ -107,16 +118,20 @@ namespace IoTLab.AzureStorageTraining.TablesBasicSample
             throw new Exception("Category and name of product must be provided");
         }
 
-        static IEnumerable<Product> GetProducts(CloudTable table, double priceFrom, double priceTo)
+        static IEnumerable<Product> GetProductsInPriceRange(CloudTable table, double priceFrom, double priceTo)
         {
-            var fromFilter = TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.GreaterThanOrEqual, priceFrom.ToString());
-            var toFilter = TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.LessThanOrEqual, priceTo.ToString());
+            var fromFilter = TableQuery.GenerateFilterCondition("Price", QueryComparisons.GreaterThanOrEqual, priceFrom.ToString());
+
+            var toFilter = TableQuery.GenerateFilterCondition("Price", QueryComparisons.LessThanOrEqual, priceTo.ToString());
 
             //Combine filters
             var filter = TableQuery.CombineFilters(fromFilter, TableOperators.And, toFilter);
 
-            var query = new TableQuery<Product>().Where(filter);
-            var result = table.ExecuteQuery<Product>(query);
+            //var query = new TableQuery<Product>().Where(filter);
+            //var result = table.ExecuteQuery<Product>(query);
+
+            var result = table.CreateQuery<Product>().Where(x => x.Price >= priceFrom && x.Price <= priceTo).ToArray();
+
             return result;
         }
     }

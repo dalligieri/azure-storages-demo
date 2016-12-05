@@ -31,7 +31,8 @@ namespace IoTLab.AzureStorageTraining.BlobStorageSample
         public string UploadPageData(CloudBlobContainer container, string key, Stream data, int startOffset)
         {
             CloudPageBlob pageBlob = container.GetPageBlobReference(key);
-            pageBlob.WritePages(data, startOffset);
+            pageBlob.Resize(data.Length + startOffset);
+            pageBlob.WritePages(data, startOffset); // [startOffset, startOffset+data.Length)
             return GetSharedAccessSignatureForBlob(pageBlob);
         }
 
