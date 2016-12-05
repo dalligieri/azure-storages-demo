@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTLab.AzureStorageTraining.TablesBasicSample", "IoTLab.AzureStorageTraining.TablesBasicSample\IoTLab.AzureStorageTraining.TablesBasicSample.csproj", "{2C1E4CD0-8E49-4AD8-9D65-3B1ED7BD9747}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTLab.AzureStorageTraining.BlobStorageSample", "IoTLab.AzureStorageTraining.BlobStorageSample\IoTLab.AzureStorageTraining.BlobStorageSample.csproj", "{13D51FD0-73D8-4B26-BB88-77E5BE06DB1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTLab.AzureStorageTraining.QueueSample", "IoTLab.AzureStorageTraining.QueueSample\IoTLab.AzureStorageTraining.QueueSample.csproj", "{B3AB3673-90B4-4FC1-A049-B3C8C5296B95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTLab.AzureDocumentDbTraining.Sample", "IoTLab.AzureDocumentDbTraining.Sample\IoTLab.AzureDocumentDbTraining.Sample.csproj", "{0AFB0CA6-6204-4DCE-BE8F-743937C047CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTLab.AzureRedisTraining.Sample", "IoTLab.AzureRedisTraining.Sample\IoTLab.AzureRedisTraining.Sample.csproj", "{F76DDAE1-EAFD-4197-AA11-F4600B2AF3DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C1E4CD0-8E49-4AD8-9D65-3B1ED7BD9747}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C1E4CD0-8E49-4AD8-9D65-3B1ED7BD9747}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C1E4CD0-8E49-4AD8-9D65-3B1ED7BD9747}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C1E4CD0-8E49-4AD8-9D65-3B1ED7BD9747}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13D51FD0-73D8-4B26-BB88-77E5BE06DB1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13D51FD0-73D8-4B26-BB88-77E5BE06DB1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13D51FD0-73D8-4B26-BB88-77E5BE06DB1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13D51FD0-73D8-4B26-BB88-77E5BE06DB1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3AB3673-90B4-4FC1-A049-B3C8C5296B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3AB3673-90B4-4FC1-A049-B3C8C5296B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3AB3673-90B4-4FC1-A049-B3C8C5296B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3AB3673-90B4-4FC1-A049-B3C8C5296B95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AFB0CA6-6204-4DCE-BE8F-743937C047CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AFB0CA6-6204-4DCE-BE8F-743937C047CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AFB0CA6-6204-4DCE-BE8F-743937C047CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AFB0CA6-6204-4DCE-BE8F-743937C047CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F76DDAE1-EAFD-4197-AA11-F4600B2AF3DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F76DDAE1-EAFD-4197-AA11-F4600B2AF3DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F76DDAE1-EAFD-4197-AA11-F4600B2AF3DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F76DDAE1-EAFD-4197-AA11-F4600B2AF3DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
