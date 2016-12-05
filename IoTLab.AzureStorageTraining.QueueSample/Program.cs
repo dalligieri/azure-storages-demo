@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
@@ -15,6 +16,30 @@ namespace IoTLab.AzureStorageTraining.QueueSample
     {
         static void Main(string[] args)
         {
+            var accountName = "iotlabdemo2016";
+            var key = "MDwybITcIvLo03K1+gyPsncBP9Vma9C9XmV43V8Noy7U748o+WNB56DRhYfxEmdZnVSsCSIpUZlAkm44YAFLrQ==";
+
+            var queue = SetupQueue(accountName, key);
+
+            for (int i = 0; i < 10; i++)
+            {
+                DeviceMetric dm = new DeviceMetric()
+                {
+                    CreateDt = DateTime.UtcNow,
+                    Name = "Temperature",
+                    Value = i.ToString()
+                };
+                Thread.Sleep(1000);
+                SendMetric(queue, dm);
+            }
+
+            DeviceMetric metric=null;
+            while ((metric = ReceiveMetric(queue))!=null)
+            {
+                Console.WriteLine("{2:dd.MM.yy hh:mm:ss}: Received metric {0} with value {1}", metric.Name, metric.Value, metric.CreateDt);
+            }
+
+            Console.ReadLine();
         }
 
         static CloudQueue SetupQueue(string accountName, string key)
@@ -23,11 +48,11 @@ namespace IoTLab.AzureStorageTraining.QueueSample
 
             CloudStorageAccount storageAccount = new CloudStorageAccount(creadentials, true);
 
-            CloudQueueClient tableClient = storageAccount.CreateCloudQueueClient();
+            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
 
-            var queueName = "Metrics";
+            var queueName = "metrics";
 
-            CloudQueue queue = tableClient.GetQueueReference(queueName);
+            CloudQueue queue = queueClient.GetQueueReference(queueName);
 
             queue.CreateIfNotExists();
             Console.WriteLine("Queue created");
